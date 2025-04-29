@@ -175,7 +175,7 @@ export function OverviewChart({ point }: { point: MapPoint }) {
         <div className="flex w-full items-start gap-2 text-sm">
           <div className="grid gap-2">
             <div className="flex items-center gap-2 font-medium leading-none">
-             Visualización de los últimos 10 registros del día.
+             Visualización de los últimos 10 registros.
             </div>
             <Link
               href={`/${point.title.toLowerCase()}`}
