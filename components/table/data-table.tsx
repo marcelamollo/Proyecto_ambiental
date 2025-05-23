@@ -50,7 +50,7 @@ interface DataTableProps<TData, TValue> {
 
 async function createRegistro(data: unknown) {
   try {
-    const res = await fetch("http://localhost:1880/create-data", {
+    const res = await fetch("https://control-node-red.onrender.com/create-data", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
