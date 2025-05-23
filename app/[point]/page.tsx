@@ -16,9 +16,7 @@ export const metadata: Metadata = {
 async function fetchSensorData(punto: string): Promise<SensorData[]> {
   try {
     const res = await fetch(
-      `http://localhost:1880/get-data?Punto_de_Muestreo=${
-        punto
-      }`,
+      `https://control-node-red.onrender.com/get-day-data?Punto_de_Muestreo=${encodeURIComponent(punto)}`,
       { cache: "no-store" }
     );
 
