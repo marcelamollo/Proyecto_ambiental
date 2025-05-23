@@ -36,7 +36,7 @@ declare module "@tanstack/react-table" {
 
 async function updateSensorData(updatedData: SensorData): Promise<boolean> {
   try {
-    const res = await fetch(`http://localhost:1880/update-data`, {
+    const res = await fetch(`https://control-node-red.onrender.com/update-data`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -62,7 +62,7 @@ async function updateSensorData(updatedData: SensorData): Promise<boolean> {
 async function deleteSensorData(id: string, puntoDeMuestreo: string): Promise<boolean> {
   try {
     const res = await fetch(
-      `http://localhost:1880/delete-data?id=${encodeURIComponent(id)}&Punto_de_Muestreo=${encodeURIComponent(puntoDeMuestreo)}`,
+      `https://control-node-red.onrender.com/delete-data?id=${encodeURIComponent(id)}&Punto_de_Muestreo=${encodeURIComponent(puntoDeMuestreo)}`,
       {
         method: "DELETE",
       }
