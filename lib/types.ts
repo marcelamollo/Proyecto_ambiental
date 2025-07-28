@@ -7,17 +7,19 @@ export interface MapPoint {
 
 export interface SensorData {
   id: string;
+  id_zona: string;
   date: string;
   temp_amb: number;
   temperature: number;
   ph: number;
   conductivity: number;
   oxygen: number;
-  turbidity: number;
+  turbidity: number | null;
   solid: number;
   dbo5: number;
   nitrogen: number;
   phosphorus: number;
+  coliformes: number | null;
   Punto_de_Muestreo?: string;
 }
 

@@ -51,9 +51,9 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 export function Chart({ chartData }: { chartData: ChartData[] }) {
-  const [timeRange, setTimeRange] = React.useState("1d");
+  const [timeRange, setTimeRange] = React.useState("all");
   const [activeChart, setActiveChart] =
-    React.useState<keyof typeof chartConfig>("ph");
+    React.useState<keyof typeof chartConfig>("conductivity");
 
   // Filtrar datos en base al tiempo seleccionado
   const filteredData = chartData.filter((item) => {
@@ -99,18 +99,18 @@ export function Chart({ chartData }: { chartData: ChartData[] }) {
         <div className="grid flex-1 gap-1 text-left">
           <CardTitle>Datos de los sensores</CardTitle>
           <CardDescription>
-            Mostrando resultados de los últimos{" "}
+            Mostrando resultados de{""}
             {timeRange === "90d"
-              ? "3 meses"
+              ? " los últimos 3 meses"
               : timeRange === "30d"
-              ? "30 días"
+              ? " los últimos 30 días"
               : timeRange === "1d"
-              ? "1 día"
+              ? " hoy"
               : timeRange === "all"
-              ? "todos los datos"
+              ? " todos los datos"
               : timeRange === "365d"
-              ? "1 año"
-              : "7 días"}
+              ? "l último 1 año"
+              : " los últimos 7 días"}
           </CardDescription>
         </div>
         <Select value={timeRange} onValueChange={setTimeRange}>
@@ -118,7 +118,7 @@ export function Chart({ chartData }: { chartData: ChartData[] }) {
             className="mt-3 w-[160px] rounded-lg sm:mt-0 sm:ml-auto"
             aria-label="Select time range"
           >
-            <SelectValue placeholder="Hoy" />
+            <SelectValue placeholder="todos los datos" />
           </SelectTrigger>
           <SelectContent className="rounded-xl">
             <SelectItem value="all" className="rounded-lg">

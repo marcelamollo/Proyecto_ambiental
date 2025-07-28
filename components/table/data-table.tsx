@@ -1,4 +1,6 @@
 "use client";
+import { SensorData } from "@/lib/types";
+import ExportData from "@/components/ui/export-data";
 
 import * as React from "react";
 import {
@@ -105,25 +107,30 @@ export function DataTable<TData, TValue>({
     );
   };
 
-  const table = useReactTable({
-    data,
-    columns,
-    getCoreRowModel: getCoreRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
-    onSortingChange: setSorting,
-    getSortedRowModel: getSortedRowModel(),
-    onColumnFiltersChange: setColumnFilters,
-    getFilteredRowModel: getFilteredRowModel(),
-    onColumnVisibilityChange: setColumnVisibility,
-    filterFns: {
-      dateRange: dateRangeFilter,
-    },
-    state: {
-      sorting,
-      columnFilters,
-      columnVisibility,
-    },
-  });
+const table = useReactTable({
+  data,
+  columns,
+  getCoreRowModel: getCoreRowModel(),
+  getPaginationRowModel: getPaginationRowModel(),
+  onSortingChange: setSorting,
+  getSortedRowModel: getSortedRowModel(),
+  onColumnFiltersChange: setColumnFilters,
+  getFilteredRowModel: getFilteredRowModel(),
+  onColumnVisibilityChange: setColumnVisibility,
+  filterFns: {
+    dateRange: dateRangeFilter,
+  },
+  state: {
+    sorting,
+    columnFilters,
+    columnVisibility,
+  },
+});
+
+React.useEffect(() => {
+  table.getColumn("date")?.setFilterValue(undefined);
+}, []);
+
   const router = useRouter();
   const [date, setDate] = React.useState(
     new Date().toISOString().split("T")[0]
@@ -206,7 +213,7 @@ export function DataTable<TData, TValue>({
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="outline" className="ml-auto">
-                Columns
+                Columnas
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
@@ -400,6 +407,7 @@ export function DataTable<TData, TValue>({
               </DialogFooter>
             </DialogContent>
           </Dialog>
+          <ExportData data={data as unknown as SensorData[]} />
         </div>
       </div>
 

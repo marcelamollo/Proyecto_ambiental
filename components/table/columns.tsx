@@ -171,14 +171,14 @@ const ActionsCell: React.FC<{ data: SensorData }> = ({ data }) => {
                 id="conductivity"
                 type="number"
                 className="col-span-1"
-                defaultValue={data.conductivity}
+                defaultValue={data.conductivity ?? ''}
               />
               <Label htmlFor="turbidity">Turbidez</Label>
               <Input
                 id="turbidity"
                 type="number"
                 className="col-span-1"
-                defaultValue={data.turbidity}
+                defaultValue={data.turbidity ?? ''}
               />
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
@@ -387,15 +387,15 @@ export const columns: ColumnDef<SensorData>[] = [
   },
   {
     accessorKey: "temp_amb",
-    header: "Temperatura ambiente",
+    header: "Temperatura ambiente [°C]",
   },
   {
     accessorKey: "temperature",
-    header: "Temperatura",
+    header: "Temperatura [°C]",
   },
   {
     accessorKey: "oxygen",
-    header: "Oxígeno D",
+    header: "Oxígeno D [mg/L]",
   },
   {
     accessorKey: "ph",
@@ -403,27 +403,31 @@ export const columns: ColumnDef<SensorData>[] = [
   },
   {
     accessorKey: "conductivity",
-    header: "Conductividad",
+    header: "Conductividad [µS/cm]",
   },
   {
     accessorKey: "turbidity",
-    header: "Turbidez",
+    header: "Turbidez [NTU]",
   },
   {
     accessorKey: "solid",
-    header: "Sólidos totales",
+    header: "Sólidos totales [mg/L]",
   },
   {
     accessorKey: "dbo5",
-    header: "DBO5",
+    header: "DBO5 [mg/L]",
   },
   {
     accessorKey: "nitrogen",
-    header: "Nitrógeno",
+    header: "Nitrógeno [mg/L]",
   },
   {
     accessorKey: "phosphorus",
-    header: "Fósforo",
+    header: "Fósforo [mg/L]",
+  },
+  {
+    accessorKey: "coliformes",
+    header: "Coliformes fecales [UFC/ 100 ml]",
   },
   {
     id: "actions",
