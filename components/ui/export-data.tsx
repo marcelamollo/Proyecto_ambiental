@@ -2,35 +2,41 @@
 
 import { Button } from './button';
 import * as XLSX from 'xlsx';
-import { SensorData } from '@/lib/types';
+import { sensorData } from '@/lib/data';
 
-type Props = {
-  data: SensorData[];
+// Mapa inverso para obtener nombre desde id_zona
+const zonasInv: { [key: string]: string } = {
+  "1": "zona calvario quillacollo",
+  "2": "zona la maica",
+  "3": "puente killman",
+  "4": "puente cobija",
+  "5": "puente siles",
 };
 
-const ExportExcel = ({ data }: Props) => {
+const ExportExcelAll = () => {
   const exportar = () => {
-    // Transformar los datos anidados a formato plano
-    const datosPlanos = data.reverse().map((item) => ({
-      Punto_de_muestreo: item.Punto_de_Muestreo,
-      Id: item.id,
-      FechayHora_timestampISO8601: item.date,
-      Temperatura_agua: item.temperature,
-      pH: item.ph,
-      Turbidez: item.turbidity,
-      Temp_ambiente: item.temp_amb,
-      Conductividad: item.conductivity,
-      Oxigeno_disuelto: item.oxygen,
-      Solidos_disueltos: item.solid,
-      DBO5: item.dbo5,
-      Nitrógeno: item.nitrogen,
-      Fósforo: item.phosphorus
+    const datosPlanos = sensorData.slice().sort((a, b) => Number(a.id) - Number(b.id)).map((item) => ({
+      "ID": item.id,
+      "ID Zona": item.id_zona,
+      "Punto de Muestreo": zonasInv[item.id_zona] || "Zona desconocida",
+      "Fecha y Hora [ISO 8601]": item.date,
+      "Temperatura del Agua [°C]": item.temperature,
+      "pH": item.ph,
+      "Turbidez [NTU]": item.turbidity,
+      "Temperatura Ambiente [°C]": item.temp_amb,
+      "Conductividad [µS/cm]": item.conductivity,
+      "Oxígeno Disuelto [mg/L]": item.oxygen,
+      "Sólidos Disueltos Totales [mg/L]": item.solid,
+      "DBO5 [mg/L]": item.dbo5,
+      "Nitrógeno Total [mg/L]": item.nitrogen,
+      "Fósforo Total [mg/L]": item.phosphorus,
     }));
 
     const worksheet = XLSX.utils.json_to_sheet(datosPlanos);
     const workbook = XLSX.utils.book_new();
 
     XLSX.utils.book_append_sheet(workbook, worksheet, 'Datos');
+
     const excelBuffer = XLSX.write(workbook, {
       bookType: 'xlsx',
       type: 'array',
@@ -39,8 +45,7 @@ const ExportExcel = ({ data }: Props) => {
     const blob = new Blob([excelBuffer], { type: 'application/octet-stream' });
     const url = URL.createObjectURL(blob);
 
-    const punto = data[0]?.Punto_de_Muestreo || 'PuntoDesconocido';
-    const nombreArchivo = `Datos-${punto}.xlsx`;
+    const nombreArchivo = 'Compilacion_datos_monitoreo_rio_Rocha.xlsx';
 
     const link = document.createElement('a');
     link.href = url;
@@ -59,4 +64,4 @@ const ExportExcel = ({ data }: Props) => {
   );
 };
 
-export default ExportExcel;
+export default ExportExcelAll;

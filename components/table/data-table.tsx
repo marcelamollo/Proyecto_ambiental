@@ -407,7 +407,7 @@ React.useEffect(() => {
               </DialogFooter>
             </DialogContent>
           </Dialog>
-          <ExportData data={data as unknown as SensorData[]} />
+          <ExportData />
         </div>
       </div>
 
