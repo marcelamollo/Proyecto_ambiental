@@ -9,7 +9,6 @@ import { DataTable } from "@/components/table/data-table";
 import SelectZone from "@/components/select-zone";
 import { ChartData, SensorData } from "@/lib/types";
 import { useParams } from "next/navigation";
-import ExportData from "@/components/ui/export-data";
 import { sensorData as localSensorData } from "@/lib/data";
 
 /*async function fetchSensorData(punto: string): Promise<SensorData[]> {
