@@ -1,5 +1,4 @@
 "use client";
-//import { SensorData } from "@/lib/types";
 import ExportData from "@/components/ui/export-data";
 
 import * as React from "react";
